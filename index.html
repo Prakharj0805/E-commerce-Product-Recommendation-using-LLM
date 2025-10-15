@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI-Powered Product Recommender</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .ai-toggle {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ai-badge {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+    .toggle-switch {
+      position: relative;
+      width: 50px;
+      height: 24px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    .hint-text {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AI-Powered Product Recommender</h1>
+    <p style="text-align: center; color: #666; margin-bottom: 20px;">
+      Find your perfect product with intelligent recommendations
+    </p>
+
+    <form action="/recommend" method="POST">
+      <input list="products" name="product_name" placeholder="Enter product name or describe what you're looking for..." required>
+      <datalist id="products">
+        {% for p in product_names %}
+          <option value="{{ p }}">
+        {% endfor %}
+      </datalist>
+
+      <div class="ai-toggle">
+        <label class="toggle-switch">
+          <input type="checkbox" name="use_ai_search" id="ai-toggle">
+          <span class="slider"></span>
+        </label>
+        <label for="ai-toggle" style="cursor: pointer;">
+          <span class="ai-badge">AI</span> Smart Search
+        </label>
+      </div>
+      <p class="hint-text" id="search-hint">
+        💡 Enable AI Smart Search to use natural language like "affordable laptop for students"
+      </p>
+
+      <button type="submit">Get Recommendations</button>
+    </form>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('ai-toggle');
+    const hint = document.getElementById('search-hint');
+    const input = document.querySelector('input[name="product_name"]');
+
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        hint.textContent = " AI mode active! Describe what you're looking for in your own words.";
+        input.placeholder = "Describe what you're looking for...";
+      } else {
+        hint.textContent = "Enable AI Smart Search to use natural language like \"affordable laptop for students\"";
+        input.placeholder = "Enter product name or describe what you're looking for...";
+      }
+    });
+  </script>
+</body>
+</html>
