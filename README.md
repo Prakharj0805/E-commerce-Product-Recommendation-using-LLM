@@ -2,6 +2,10 @@
 These project generally recommend the e commerce products with AI insights
 
 Project Structure
+
+
+
+
 product_recommender/
 │
 ├── app.py
