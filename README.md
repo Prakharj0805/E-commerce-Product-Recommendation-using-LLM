@@ -17,3 +17,7 @@ product_recommender/
 ├── static/
 │   └── style.css
 └── clean_data.csv
+
+
+
+DEMO VIDEO::https://drive.google.com/file/d/1UTxjeUzyk-sIasYGYQFM3Ydj2w-LQOwA/view?usp=sharing
